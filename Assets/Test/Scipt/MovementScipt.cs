@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class MovementScipt : MonoBehaviour
 {
     public Animator animator;
@@ -9,9 +10,14 @@ public class MovementScipt : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Transform sword;
-    public float swordRadius = 1.0f;
 
     private bool isFacingRight = true;
+
+    void Start()
+    {
+        // Make the sword a child of the character's transform
+        sword.parent = transform;
+    }
 
     void Update()
     {
@@ -33,19 +39,12 @@ public class MovementScipt : MonoBehaviour
             {
                 FlipCharacter();
             }
-
-            // Rotate the sword based on joystick direction
-            float joystickAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            sword.rotation = Quaternion.Euler(0f, 0f, joystickAngle);
-            // Position the sword in front of the character based on the radius
-            Vector2 swordPosition = direction * swordRadius;
-            sword.position = transform.position + new Vector3(swordPosition.x, swordPosition.y, 0f);
         }
+
         if (rb.constraints == RigidbodyConstraints2D.None)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-
     }
 
     private void FlipCharacter()
@@ -60,6 +59,7 @@ public class MovementScipt : MonoBehaviour
     {
         animator.SetTrigger("attack");
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Obstacle"))
