@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102104818905906738}
   - component: {fileID: 2102104818905906737}
-  - component: {fileID: 2102104818905906736}
+  - component: {fileID: 8387001458868616638}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Coin
@@ -72,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1741709437
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 1149731334, guid: c44777f237cf5af4a9d94ca46e00e6c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2102104818905906736
-CircleCollider2D:
+--- !u!60 &8387001458868616638
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,5 +99,34 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.25, y: 0.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.075847626, y: 0.25130785}
+      - {x: -0.076128006, y: 0.23514685}
+      - {x: -0.10443878, y: 0.23456162}
+      - {x: -0.10364485, y: 0.17150024}
+      - {x: -0.12406874, y: 0.171936}
+      - {x: -0.123886585, y: -0.1535793}
+      - {x: -0.10231018, y: -0.1565519}
+      - {x: -0.10723925, y: -0.2207182}
+      - {x: -0.07720661, y: -0.22104818}
+      - {x: -0.073795795, y: -0.2471441}
+      - {x: 0.07252169, y: -0.24934512}
+      - {x: 0.07159805, y: -0.22385669}
+      - {x: 0.10523939, y: -0.22380549}
+      - {x: 0.09618044, y: -0.17471963}
+      - {x: 0.12927628, y: -0.17437935}
+      - {x: 0.12613821, y: 0.13705102}
+      - {x: 0.1046195, y: 0.13888004}
+      - {x: 0.103005886, y: 0.22711831}
+      - {x: 0.07851696, y: 0.22749025}
+      - {x: 0.0752368, y: 0.2529621}

@@ -17,6 +17,9 @@ public class MovementScipt : MonoBehaviour
     {
         // Make the sword a child of the character's transform
         sword.parent = transform;
+
+        // Add Rigidbody2D to Player object
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -27,7 +30,8 @@ public class MovementScipt : MonoBehaviour
         // Move the game object if joystick is moved
         if (direction.magnitude > 0)
         {
-            transform.Translate(direction * moveSpeed * Time.deltaTime);
+            rb.velocity = direction * moveSpeed;
+            //animator.SetFloat("speed", moveSpeed);
 
             // Flip the character if moving to the right
             if (direction.x > 0 && !isFacingRight)
@@ -39,6 +43,11 @@ public class MovementScipt : MonoBehaviour
             {
                 FlipCharacter();
             }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            //animator.SetFloat("speed", 0f);
         }
 
         if (rb.constraints == RigidbodyConstraints2D.None)
@@ -60,11 +69,14 @@ public class MovementScipt : MonoBehaviour
         animator.SetTrigger("attack");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // OnTriggerEnter2D is called when the Collider2D other enters the trigger (Player Collider)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Obstacle"))
-        {   
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (collision.CompareTag("Enemy"))
+        {
+            rb.velocity = Vector2.zero;
         }
     }
+
+
 }

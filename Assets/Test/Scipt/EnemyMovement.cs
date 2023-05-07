@@ -8,10 +8,12 @@ public class EnemyMovement : MonoBehaviour
     public Rigidbody2D rb;
     private Transform player;
     private bool facingRight = false;
+    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
+    
     private void Update()
     {
         if (player == null) return;
@@ -23,41 +25,25 @@ public class EnemyMovement : MonoBehaviour
             Flip();
         }
     }
+    
+    private void FixedUpdate()
+    {
+        if (player != null)
+        {
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+        }
+        rb.velocity = Vector2.zero;
+    }
+
     private void Flip()
     {
-    // Switch the value of facingRight
+        // Switch the value of facingRight
         facingRight = !facingRight;
 
-    // Flip the enemy's scale along the x-axis
+        // Flip the enemy's scale along the x-axis
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
-    }
-
-
-    void FixedUpdate()
-    {
-        if(player != null)
-        {
-             Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = direction * moveSpeed;
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        }
-
-    
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Check if the collision is with the player or another object
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Obstacle"))
-        {
-            // Lock the rotation of the enemy when it hits the player or another object
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        }
     }
 }

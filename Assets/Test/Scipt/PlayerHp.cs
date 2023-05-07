@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class PlayerHp : MonoBehaviour
 {
     public int MaxHealt = 100;
     public int CurrentHealth;
     public HealthBar healthBar;
-    public GameOver gameover;
+    public string sceneName;
 
-    
     void Start()
     {
+        
         CurrentHealth = MaxHealt;
         healthBar.SetMaxHealth(MaxHealt);
     }
@@ -22,7 +23,7 @@ public class PlayerHp : MonoBehaviour
     {
         if(CurrentHealth <= 0)
         {
-            gameover.GameOverActive();
+            SceneManager.LoadScene(sceneName);
         }
     }
 
@@ -44,15 +45,17 @@ public class PlayerHp : MonoBehaviour
                 healthBar.SetHealth(CurrentHealth);
             }
         }
-    }
-
-    public void Check(bool dead)
-    {
-        if(dead == true)
+        if(Heal.tag == "BigHealth")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if(CurrentHealth <= 400)
+            {
+                Destroy(Heal.gameObject);
+                CurrentHealth += 100;
+                healthBar.SetHealth(CurrentHealth);
+            }
         }
     }
 
-    
+
+
 }

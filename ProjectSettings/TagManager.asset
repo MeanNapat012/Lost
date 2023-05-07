@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - Health
   - Sword
+  - Spawn
+  - Room
+  - FinalSpawn
+  - BigHealth
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Room
   - 
   - 
   - 

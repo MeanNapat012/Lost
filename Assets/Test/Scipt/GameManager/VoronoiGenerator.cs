@@ -4,68 +4,105 @@ using UnityEngine;
 public class VoronoiGenerator : MonoBehaviour
 {
     public int pointCount = 10;
-    public GameObject voronoiPrefab;
+    public float distanceThreshold = 50f;
     public GameObject roomStartPrefab;
+    public GameObject roomPrefab;
     public GameObject roomEndPrefab;
-    public List<Vector2> points = new List<Vector2>();
-    public GameObject bounds;
+    public GameObject area;
+    public GameObject player;
+    public int VoronoiCount = 0;
+    private int RoomCount = 0;
+    private PlayerWin playerWin;
 
-    void Start()
+    private List<Vector2> points = new List<Vector2>();
+
+    private void Start()
     {
-        // สร้าง Prefab ของ roomstart และ roomend
-        GameObject roomStart = Instantiate(roomStartPrefab, new Vector2(0, 0), Quaternion.identity);
-        GameObject roomEnd = Instantiate(roomEndPrefab, new Vector2(0, 0), Quaternion.identity);
+        GenerateVoronoiPoints(pointCount, distanceThreshold);
+        Vector2 roomStart = points[0];
+        Vector2 roomEnd = FindFarthestPoint(roomStart);
+        SpawnRooms(roomStart, roomEnd);
 
-        // สุ่มจุด Voronoi
-        GenerateVoronoiPoints(pointCount);
+        // ให้ Player ย้ายไปยัง Voronoi ที่สร้างห้อง roomStart
+        Vector3 playerStartPosition = new Vector3(roomStart.x, roomStart.y, 0);
+        player.transform.position = playerStartPosition;
+        playerWin = player.GetComponent<PlayerWin>();
+        if (playerWin == null)
+        {
+            Debug.LogError("PlayerWin component not found.");
+        }
+        
 
-        // สร้าง Prefab ของ Voronoi
-        InstantiateVoronoi();
-
-        // เพิ่ม roomstart และ roomend เข้าไปใน List ของ points
-        points.Insert(0, new Vector2(roomStart.transform.position.x, roomStart.transform.position.y));
-        points.Add(new Vector2(roomEnd.transform.position.x, roomEnd.transform.position.y));
     }
 
-    // ฟังก์ชันสุ่มจุด Voronoi
-    void GenerateVoronoiPoints(int count)
+    private void GenerateVoronoiPoints(int count, float threshold)
     {
         for (int i = 0; i < count; i++)
         {
-            bool valid = false;
-            Vector2 point = Vector2.zero;
-
-            while (!valid)
+            Vector2 newPoint = new Vector2(
+                Random.Range(area.transform.position.x - area.transform.localScale.x / 2, area.transform.position.x + area.transform.localScale.x / 2),
+                Random.Range(area.transform.position.y - area.transform.localScale.y / 2, area.transform.position.y + area.transform.localScale.y / 2)
+            );
+            bool validPoint = true;
+            foreach (Vector2 existingPoint in points)
             {
-                // สุ่มตำแหน่งใหม่ของจุด Voronoi
-                float x = Random.Range(bounds.transform.position.x - bounds.transform.localScale.x / 2, bounds.transform.position.x + bounds.transform.localScale.x / 2);
-                float y = Random.Range(bounds.transform.position.y - bounds.transform.localScale.y / 2, bounds.transform.position.y + bounds.transform.localScale.y / 2);
-                point = new Vector2(x, y);
-
-                valid = true;
-
-                // ตรวจสอบระยะห่างระหว่างจุด
-                foreach (Vector2 p in points)
+                if (Vector2.Distance(newPoint, existingPoint) < threshold)
                 {
-                    if (Vector2.Distance(point, p) < 30f)
-                    {
-                        valid = false;
-                        break;
-                    }
+                    validPoint = false;
+                    break;
                 }
             }
-
-            points.Add(point);
+            if (validPoint)
+            {
+                points.Add(newPoint);
+                VoronoiCount++;
+            }
         }
     }
 
-    // ฟังก์ชันสร้าง Prefab ของ Voronoi
-    void InstantiateVoronoi()
+    private Vector2 FindFarthestPoint(Vector2 referencePoint)
     {
+        Vector2 farthestPoint = Vector2.zero;
+        float farthestDistance = 0f;
         foreach (Vector2 point in points)
         {
-            GameObject voronoi = Instantiate(voronoiPrefab, point, Quaternion.identity);
-            voronoi.transform.parent = transform;
+            float distance = Vector2.Distance(point, referencePoint);
+            if (distance > farthestDistance)
+            {
+                farthestDistance = distance;
+                farthestPoint = point;
+            }
+        }
+        return farthestPoint;
+    }
+
+    private void SpawnRooms(Vector2 roomStart, Vector2 roomEnd)
+    {
+        for (int i = 0; i < points.Count; i++)
+        {
+            if (points[i] == roomStart)
+            {
+                Instantiate(roomStartPrefab, new Vector3(points[i].x, points[i].y, 0), Quaternion.identity);
+            }
+            else if (points[i] == roomEnd)
+            {
+                Instantiate(roomEndPrefab, new Vector3(points[i].x, points[i].y, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(roomPrefab, new Vector3(points[i].x, points[i].y, 0), Quaternion.identity);
+            }
         }
     }
+    
+    void Update()
+    {
+        RoomCount = VoronoiCount;
+        if (playerWin != null)
+        {
+            playerWin.Numroom(RoomCount);
+            playerWin.AllroomInScene(RoomCount);
+        }
+    }
+
 }
