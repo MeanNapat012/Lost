@@ -22,8 +22,6 @@ public class VoronoiGenerator : MonoBehaviour
         Vector2 roomStart = points[0];
         Vector2 roomEnd = FindFarthestPoint(roomStart);
         SpawnRooms(roomStart, roomEnd);
-
-        // ให้ Player ย้ายไปยัง Voronoi ที่สร้างห้อง roomStart
         Vector3 playerStartPosition = new Vector3(roomStart.x, roomStart.y, 0);
         player.transform.position = playerStartPosition;
         playerWin = player.GetComponent<PlayerWin>();

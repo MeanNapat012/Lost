@@ -30,7 +30,7 @@ public class Teleport : MonoBehaviour
     IEnumerator TeleportPlayer(GameObject player)
     {
         List<GameObject> spawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Room"));
-        spawnPoints.Remove(gameObject); // Remove current spawn point from the list
+        spawnPoints.Remove(gameObject);
         if (spawnPoints.Count > 0)
         {
             int randomIndex = Random.Range(0, spawnPoints.Count);

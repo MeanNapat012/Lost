@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public List<GameObject> enemyPrefabs = new List<GameObject>(); // รายการ Prefab ของศัตรู
+    public List<GameObject> enemyPrefabs = new List<GameObject>();
     public GameObject Coin;
     public int minCoin = 1;
     public int maxCoin = 5;

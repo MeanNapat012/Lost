@@ -18,10 +18,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player == null) return;
 
-        // Check if player is on the opposite side of the enemy
         if ((player.position.x < transform.position.x && facingRight) || (player.position.x > transform.position.x && !facingRight))
         {
-            // Flip the enemy
             Flip();
         }
     }
@@ -38,10 +36,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Flip()
     {
-        // Switch the value of facingRight
         facingRight = !facingRight;
 
-        // Flip the enemy's scale along the x-axis
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;

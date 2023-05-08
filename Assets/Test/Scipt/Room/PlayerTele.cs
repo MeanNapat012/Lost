@@ -33,7 +33,6 @@ public class PlayerTele : MonoBehaviour
 
             if (targetSpawnPoint != null)
             {
-                // คำนวณเวกเตอร์ทิศทางด้านหน้าและคูณด้วยระยะทางที่ต้องการให้เคลื่อนที่
                 Vector2 direction = transform.right;
                 Vector2 position = (Vector2)transform.position + (direction * closestDistance);
 
