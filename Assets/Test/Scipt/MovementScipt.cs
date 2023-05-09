@@ -16,7 +16,7 @@ public class MovementScipt : MonoBehaviour
     void Start()
     {
         sword.parent = transform;
-
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody2D>();
     }
 

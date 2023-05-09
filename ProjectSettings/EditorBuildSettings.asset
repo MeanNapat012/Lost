@@ -10,10 +10,10 @@ EditorBuildSettings:
     guid: 6454060baba4c2f4490a5e6cb0cfbb89
   - enabled: 1
     path: Assets/Scenes/Game1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 0027023650a26c34ab0a2401909359df
   - enabled: 1
     path: Assets/Scenes/Game2.unity
-    guid: c2dd8d5e2de8f8b40ac2fd47ee34d95d
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/DeadGame1.unity
     guid: 2cee33f3849d4e74b98e85b23949776f
