@@ -8,20 +8,9 @@ public class PlayerWin : MonoBehaviour
 {
     public int Allroom;
     public int WinRoom = 0;
-    public Text MyroomText;
     public int RoomNum;
     public string sceneName;
 
-    void start()
-    {
-        RoomNum = 0;
-        MyroomText.text = "Room : "+ RoomNum;
-    }
-
-    public void Numroom(int numroom)
-    {
-        Allroom = numroom - 2;
-    }
 
     public void CountRoomWin()
     {
@@ -39,9 +28,4 @@ public class PlayerWin : MonoBehaviour
         }
     }
 
-    public void AllroomInScene(int amount)
-    {
-        RoomNum = amount;
-        MyroomText.text = "Room : "+ RoomNum;
-    }
 }

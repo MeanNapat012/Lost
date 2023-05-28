@@ -12,7 +12,7 @@ public class VoronoiGenerator : MonoBehaviour
     public GameObject player;
     public int VoronoiCount = 0;
     private int RoomCount = 0;
-    private PlayerWin playerWin;
+    //private PlayerWin playerWin;
 
     private List<Vector2> points = new List<Vector2>();
 
@@ -24,11 +24,11 @@ public class VoronoiGenerator : MonoBehaviour
         SpawnRooms(roomStart, roomEnd);
         Vector3 playerStartPosition = new Vector3(roomStart.x, roomStart.y, 0);
         player.transform.position = playerStartPosition;
-        playerWin = player.GetComponent<PlayerWin>();
-        if (playerWin == null)
+        //playerWin = player.GetComponent<PlayerWin>();
+        /*if (playerWin == null)
         {
             Debug.LogError("PlayerWin component not found.");
-        }
+        }*/
         
 
     }
@@ -95,12 +95,12 @@ public class VoronoiGenerator : MonoBehaviour
     
     void Update()
     {
-        RoomCount = VoronoiCount;
+        /*RoomCount = VoronoiCount;
         if (playerWin != null)
         {
             playerWin.Numroom(RoomCount);
             playerWin.AllroomInScene(RoomCount);
-        }
+        }*/
     }
 
 }
